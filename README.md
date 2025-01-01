@@ -74,10 +74,10 @@ Start with tree-based algorithms like Random Forests.
 
 Select and justify the appropriate loss function.
 
-####Post Prediction Analysis:
+#### Post Prediction Analysis:
 Explore feature importance and estimate confidence intervals.
 
-####Serialize Models:
+#### Serialize Models:
 Save models with timestamps for tracking.
 
 #### Deep Learning Model:
