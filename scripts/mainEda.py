@@ -165,6 +165,14 @@ class EDA:
         print(f"Average CompetitionDistance with Promo2: \n{promo_data}")
 
 
+    def promo2_distribution_analysis(self):
+        """Visualize the distribution of Promo2."""
+        plt.figure(figsize=(8, 6))
+        sns.countplot(x='Promo2', data=self.store)
+        plt.title("Promo2 Distribution")
+        plt.show()
+
+
     def data_overview(self, df):
         """Print a detailed overview of the dataset."""
         print(f"Dataset Shape: {df.shape}")
@@ -172,7 +180,24 @@ class EDA:
         print(df.info())
         print(df.describe())
 
-        
+
+    def promo2_distribution_analysis(self):
+        """Visualize the distribution of Promo2."""
+        plt.figure(figsize=(8, 6))
+        sns.countplot(x='Promo2', data=self.store)
+        plt.title("Promo2 Distribution")
+        plt.show()
+
+   
+
+    def assortment_sales_analysis(self):
+        """Analyze sales by assortment type."""
+        assortment_sales = self.train.merge(self.store, on='Store')
+        plt.figure(figsize=(10, 6))
+        sns.boxplot(x='Assortment', y='Sales', data=assortment_sales)
+        plt.title('Sales by Assortment Type')
+        plt.show()
+    
     def complete_eda(self):
         self.handle_missing_values()
         self.visualize_missing_data()
