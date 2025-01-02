@@ -145,8 +145,19 @@ class EDA:
         sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
         plt.title("Correlation between features")
         plt.show()
-    
-   
+  
+
+    def label_encode_columns(self):
+        """Label encode categorical columns and visualize correlation matrix."""
+        label_encoder = LabelEncoder()
+        self.store['StoreType'] = label_encoder.fit_transform(self.store['StoreType'])
+        self.store['Assortment'] = label_encoder.fit_transform(self.store['Assortment'])
+        self.store['PromoInterval'].fillna('None', inplace=True)
+        self.store['PromoInterval'] = label_encoder.fit_transform(self.store['PromoInterval'])
+
+        correlation_matrix = self.store.corr()
+        return correlation_matrix
+
 
     def data_overview(self, df):
         """Print a detailed overview of the dataset."""
