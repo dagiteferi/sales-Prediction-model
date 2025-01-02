@@ -190,6 +190,13 @@ class EDA:
 
    
 
+    def competition_effect_analysis(self):
+        """Analyze the effect of competition on stores."""
+        self.store['HasCompetition'] = self.store['CompetitionDistance'].apply(lambda x: 1 if x > 0 else 0)
+        comp_effect = self.store.groupby('HasCompetition').mean()['CompetitionDistance']
+        print(f"Effect of having competition on stores: \n{comp_effect}")
+
+
     def assortment_sales_analysis(self):
         """Analyze sales by assortment type."""
         assortment_sales = self.train.merge(self.store, on='Store')
