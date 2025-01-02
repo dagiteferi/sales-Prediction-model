@@ -159,6 +159,12 @@ class EDA:
         return correlation_matrix
 
 
+    def promo2_analysis(self):
+        """Analyze the effect of Promo2 on CompetitionDistance."""
+        promo_data = self.store.groupby('Promo2').mean()['CompetitionDistance']
+        print(f"Average CompetitionDistance with Promo2: \n{promo_data}")
+
+
     def data_overview(self, df):
         """Print a detailed overview of the dataset."""
         print(f"Dataset Shape: {df.shape}")
