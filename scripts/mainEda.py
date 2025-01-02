@@ -190,6 +190,13 @@ class EDA:
 
    
 
+    def city_center_analysis(self):
+        """Analyze the effect of being in the city center on stores."""
+        self.store['IsCityCenter'] = self.store['CompetitionDistance'].apply(lambda x: 1 if x <= 500 else 0)
+        city_center_stores = self.store.groupby('IsCityCenter').mean()['CompetitionDistance']
+        print(f"Effect of being in city center on stores: \n{city_center_stores}")
+
+
     def competition_effect_analysis(self):
         """Analyze the effect of competition on stores."""
         self.store['HasCompetition'] = self.store['CompetitionDistance'].apply(lambda x: 1 if x > 0 else 0)
