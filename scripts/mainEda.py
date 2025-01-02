@@ -51,7 +51,15 @@ class EDA:
             self.store['Promo2SinceYear'].astype(int).astype(str) + '-W' + self.store['Promo2SinceWeek'].astype(int).astype(str) + '-1',
             errors='coerce'
         )
-        
+   
+
+    def check_missing_values(self, df):
+        """Check and visualize missing values in the dataset."""
+        missing_values = df.isnull().sum()
+        print(f"Missing Values:\n{missing_values}")
+        msno.matrix(df)
+        plt.show()
+  
     def visualize_missing_data(self):
         self.check_missing_values(self.store)
         
@@ -119,6 +127,16 @@ class EDA:
         sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
         plt.title("Correlation between features")
         plt.show()
+    
+   
+
+    def data_overview(self, df):
+        """Print a detailed overview of the dataset."""
+        print(f"Dataset Shape: {df.shape}")
+        print(f"Columns: {df.columns}")
+        print(df.info())
+        print(df.describe())
+
         
     def complete_eda(self):
         self.handle_missing_values()
