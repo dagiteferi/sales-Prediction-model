@@ -53,6 +53,14 @@ class EDA:
         )
    
 
+    def visualize_outliers(self, df, columns, title):
+        """Visualize outliers in the specified columns using boxplots."""
+        plt.figure(figsize=(10, 6))
+        sns.boxplot(data=df[columns])
+        plt.title(title)
+        plt.show()
+
+
     def check_missing_values(self, df):
         """Check and visualize missing values in the dataset."""
         missing_values = df.isnull().sum()
