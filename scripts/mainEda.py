@@ -53,6 +53,16 @@ class EDA:
         )
    
 
+    def plot_distribution(self, df, column, title, bins=50, color='blue', label=None, kde=True):
+        """Plot the distribution of a column in the dataset."""
+        plt.figure(figsize=(10, 6))
+        sns.histplot(df[column], kde=kde, bins=bins, color=color, label=label)
+        plt.title(title)
+        if label:
+            plt.legend()
+        plt.show()
+
+
     def visualize_outliers(self, df, columns, title):
         """Visualize outliers in the specified columns using boxplots."""
         plt.figure(figsize=(10, 6))
