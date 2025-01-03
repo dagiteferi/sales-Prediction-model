@@ -22,6 +22,7 @@ class ModelTrainer:
         self.X_test = X_test
         self.y_test = y_test
 
+
     def train_xgboost(self):
         xgb_pipeline = Pipeline([
             ('scaler', StandardScaler()),
