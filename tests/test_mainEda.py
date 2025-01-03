@@ -1,6 +1,12 @@
 import unittest
+import os
+import sys
 import pandas as pd
-from scripts.mainEda import EDA
+
+# Add the scripts folder to the system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'scripts')))
+
+from mainEda import EDA
 
 class TestEDA(unittest.TestCase):
 
