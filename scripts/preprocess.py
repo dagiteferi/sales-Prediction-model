@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
+import pandas as pd
+
 class Preprocessor:
     def __init__(self, train_path, test_path, store_path):
         self.train_path = train_path
@@ -14,6 +16,7 @@ class Preprocessor:
         self.test = pd.read_csv(self.test_path, low_memory=False)
         self.store = pd.read_csv(self.store_path, low_memory=False)
         return self.train, self.test, self.store
+
 
     def summarize_data(self):
         print(self.train.dtypes)
