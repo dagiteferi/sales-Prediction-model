@@ -1,4 +1,3 @@
-# model.py
 import os
 import joblib
 import numpy as np
@@ -17,21 +16,24 @@ from sklearn.preprocessing import MinMaxScaler
 from datetime import datetime
 
 class ModelTrainer:
-    def __init__(self, X, y):
-        self.X = X
-        self.y = y
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    def __init__(self, X_train, y_train, X_test=None, y_test=None):
+        self.X_train = X_train
+        self.y_train = y_train
+        self.X_test = X_test
+        self.y_test = y_test
 
     def train_xgboost(self):
         xgb_pipeline = Pipeline([
             ('scaler', StandardScaler()),
             ('model', XGBRegressor(n_estimators=100, random_state=42))
         ])
+        
         xgb_pipeline.fit(self.X_train, self.y_train)
         y_pred_train_xgb = xgb_pipeline.predict(self.X_train)
-        y_pred_test_xgb = xgb_pipeline.predict(self.X_test)
-        self.evaluate_model(self.y_train, y_pred_train_xgb)
-        self.evaluate_model(self.y_test, y_pred_test_xgb)
+        
+        if self.X_test is not None:
+            y_pred_test_xgb = xgb_pipeline.predict(self.X_test)
+        
         return xgb_pipeline
 
     def train_random_forest(self):
@@ -41,9 +43,12 @@ class ModelTrainer:
         ])
         pipeline.fit(self.X_train, self.y_train)
         y_pred_train = pipeline.predict(self.X_train)
-        y_pred_test = pipeline.predict(self.X_test)
+        
+        if self.X_test is not None:
+            y_pred_test = pipeline.predict(self.X_test)
+            self.evaluate_model(self.y_test, y_pred_test)
+        
         self.evaluate_model(self.y_train, y_pred_train)
-        self.evaluate_model(self.y_test, y_pred_test)
         self.plot_feature_importances(pipeline)
         return pipeline
 
@@ -56,7 +61,7 @@ class ModelTrainer:
     def plot_feature_importances(self, pipeline):
         rf_model = pipeline.named_steps['model']
         importances = rf_model.feature_importances_
-        feature_names = self.X.columns
+        feature_names = self.X_train.columns
         feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances}).sort_values(by='Importance', ascending=False)
         print(feature_importance_df)
 
@@ -93,7 +98,7 @@ class ModelTrainer:
         return np.array(X), np.array(y)
 
     def train_lstm(self):
-        sales = self.y.values
+        sales = self.y_train.values
         scaler = MinMaxScaler(feature_range=(-1, 1))
         scaled_sales = scaler.fit_transform(sales.reshape(-1, 1))
 
@@ -142,6 +147,7 @@ class ModelTrainer:
         plt.legend()
         plt.show()
 
+        timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
         lstm_model_filename = f"./models/lstm_model_{timestamp}.h5"
         model.save(lstm_model_filename)
         print(f'LSTM model serialized to {lstm_model_filename}')
