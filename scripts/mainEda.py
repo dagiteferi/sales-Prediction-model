@@ -12,6 +12,8 @@ warnings.filterwarnings("ignore")
 
 import pandas as pd
 
+import pandas as pd
+
 class EDA:
     def __init__(self, train_path, test_path, store_path):
         self.train_path = train_path
@@ -23,9 +25,8 @@ class EDA:
         self.test = pd.read_csv(self.test_path, low_memory=False)
         self.store = pd.read_csv(self.store_path, low_memory=False)
 
-    
+   
 
-    
     def data_overview(self, df):
         print(f"Dataset Shape: {df.shape}")
         print(f"Columns: {df.columns}")
