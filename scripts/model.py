@@ -14,14 +14,12 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.preprocessing import MinMaxScaler
 from datetime import datetime
-
 class ModelTrainer:
     def __init__(self, X_train, y_train, X_test=None, y_test=None):
         self.X_train = X_train
         self.y_train = y_train
         self.X_test = X_test
         self.y_test = y_test
-
 
     def train_xgboost(self):
         xgb_pipeline = Pipeline([
@@ -30,12 +28,20 @@ class ModelTrainer:
         ])
         
         xgb_pipeline.fit(self.X_train, self.y_train)
-        y_pred_train_xgb = xgb_pipeline.predict(self.X_train)
         
+        # Manually check if the XGBoost model is fitted
+        if not is_model_fitted(xgb_pipeline.named_steps['model']):
+            raise RuntimeError("The XGBoost model is not fitted.")
+        
+        # Predict on training data
+        y_pred_train_xgb = xgb_pipeline.predict(self.X_train)
+
+        # Predict on test data if available
         if self.X_test is not None:
             y_pred_test_xgb = xgb_pipeline.predict(self.X_test)
-        
-        return xgb_pipeline
+            return xgb_pipeline, y_pred_train_xgb, y_pred_test_xgb
+
+        return xgb_pipeline, y_pred_train_xgb
 
     def train_random_forest(self):
         pipeline = Pipeline([
