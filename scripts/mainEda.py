@@ -10,15 +10,21 @@ import logging
 
 warnings.filterwarnings("ignore")
 
+import pandas as pd
+
 class EDA:
-    def __init__(self, train_path, test_path, store_path, log_path="../logs/eda.log"):
-        self.train = pd.read_csv(train_path)
-        self.test = pd.read_csv(test_path)
-        self.store = pd.read_csv(store_path)
-        logging.basicConfig(filename=log_path, level=logging.INFO)
-        
-    def load_data(self, file_path):
-        return pd.read_csv(file_path)
+    def __init__(self, train_path, test_path, store_path):
+        self.train_path = train_path
+        self.test_path = test_path
+        self.store_path = store_path
+
+    def load_data(self):
+        self.train = pd.read_csv(self.train_path, low_memory=False)
+        self.test = pd.read_csv(self.test_path, low_memory=False)
+        self.store = pd.read_csv(self.store_path, low_memory=False)
+
+    
+
     
     def data_overview(self, df):
         print(f"Dataset Shape: {df.shape}")
