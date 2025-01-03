@@ -2,7 +2,6 @@ import unittest
 import os
 import sys
 import pandas as pd
-import seaborn as sns
 
 # Add the parent directory to the system path
 sys.path.append('..')
@@ -91,8 +90,3 @@ class TestEDA(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-# Original code (Example)
-sns.boxplot(data=df, x='variable', y='value', vert=False)
-
-# Updated code
-sns.boxplot(data=df, x='variable', y='value', orientation='horizontal')
