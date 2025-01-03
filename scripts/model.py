@@ -14,6 +14,11 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.preprocessing import MinMaxScaler
 from datetime import datetime
+
+def is_model_fitted(model):
+    # Check if model is fitted by inspecting attributes
+    return hasattr(model, 'booster_')
+
 class ModelTrainer:
     def __init__(self, X_train, y_train, X_test=None, y_test=None):
         self.X_train = X_train
