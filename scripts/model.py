@@ -15,10 +15,6 @@ from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.preprocessing import MinMaxScaler
 from datetime import datetime
 
-def is_model_fitted(model):
-    # Check if model is fitted by inspecting attributes
-    return hasattr(model, 'booster_')
-
 class ModelTrainer:
     def __init__(self, X_train, y_train, X_test=None, y_test=None):
         self.X_train = X_train
@@ -31,13 +27,14 @@ class ModelTrainer:
             ('scaler', StandardScaler()),
             ('model', XGBRegressor(n_estimators=100, random_state=42))
         ])
-        
+
+        # Fit the pipeline
         xgb_pipeline.fit(self.X_train, self.y_train)
         
         # Manually check if the XGBoost model is fitted
-        if not is_model_fitted(xgb_pipeline.named_steps['model']):
+        if not hasattr(xgb_pipeline.named_steps['model'], 'booster_'):
             raise RuntimeError("The XGBoost model is not fitted.")
-        
+
         # Predict on training data
         y_pred_train_xgb = xgb_pipeline.predict(self.X_train)
 
@@ -68,7 +65,7 @@ class ModelTrainer:
         mse = mean_squared_error(y_true, y_pred)
         mae = mean_absolute_error(y_true, y_pred)
         r2 = r2_score(y_true, y_pred)
-        print(f"MSE: {mse}, MAE: {mae}, R2: {r2}")
+        return mse, mae, r2
 
     def plot_feature_importances(self, pipeline):
         rf_model = pipeline.named_steps['model']
