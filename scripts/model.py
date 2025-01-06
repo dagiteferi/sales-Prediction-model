@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from xgboost import XGBRegressor
 from sklearn.ensemble import RandomForestRegressor
@@ -25,7 +24,7 @@ class ModelTrainer:
     def train_xgboost(self):
         xgb_pipeline = Pipeline([
             ('scaler', StandardScaler()),
-            ('model', XGBRegressor(n_estimators=100, random_state=42))
+            ('model', XGBRegressor(n_estimators=50, random_state=42))  # Further reduced n_estimators for faster training
         ])
 
         # Fit the pipeline
@@ -48,7 +47,7 @@ class ModelTrainer:
     def train_random_forest(self):
         pipeline = Pipeline([
             ('scaler', StandardScaler()),
-            ('model', RandomForestRegressor(n_estimators=100, random_state=42))
+            ('model', RandomForestRegressor(n_estimators=50, random_state=42))  # Further reduced n_estimators for faster training
         ])
         pipeline.fit(self.X_train, self.y_train)
         y_pred_train = pipeline.predict(self.X_train)
