@@ -14,7 +14,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from datetime import datetime
-
+from sklearn.utils.validation import check_is_fitted
 class ModelTrainer:
     def __init__(self, X_train, y_train, X_test=None, y_test=None):
         self.X_train = X_train
@@ -160,3 +160,25 @@ class ModelTrainer:
         lstm_model_filename = f"./models/lstm_model_{timestamp}.h5"
         model.save(lstm_model_filename)
         print(f'LSTM model serialized to {lstm_model_filename}')
+    
+    def train_xgboost(self):
+        xgb_pipeline = Pipeline([
+            ('scaler', StandardScaler()),
+            ('model', XGBRegressor(n_estimators=10, random_state=42))
+        ])
+
+        # Fit the pipeline
+        xgb_pipeline.fit(self.X_train, self.y_train)
+
+        # Check if the XGBoost model is fitted
+        check_is_fitted(xgb_pipeline.named_steps['model'])
+
+        # Predict on training data
+        y_pred_train_xgb = xgb_pipeline.predict(self.X_train)
+
+        # Predict on test data if available
+        if self.X_test is not None:
+            y_pred_test_xgb = xgb_pipeline.predict(self.X_test)
+            return xgb_pipeline, y_pred_train_xgb, y_pred_test_xgb
+
+        return xgb_pipeline, y_pred_train_xgb
