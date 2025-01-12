@@ -12,8 +12,9 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
 from datetime import datetime
-
+from sklearn.utils.validation import check_is_fitted
 class ModelTrainer:
     def __init__(self, X_train, y_train, X_test=None, y_test=None):
         self.X_train = X_train
@@ -110,15 +111,15 @@ class ModelTrainer:
         scaler = MinMaxScaler(feature_range=(-1, 1))
         scaled_sales = scaler.fit_transform(sales.reshape(-1, 1))
 
-        time steps = 60
-        X_lstm, y_lstm = self.create_lagged_data(scaled_sales, time steps)
-        X_train_lstm, X_test_lstm, y_train_lstm, y_test_lstm = train test split(X_lstm, y_lstm, test size=0.2, random state=42)
+        time_steps = 60
+        X_lstm, y_lstm = self.create_lagged_data(scaled_sales, time_steps)
+        X_train_lstm, X_test_lstm, y_train_lstm, y_test_lstm = train_test_split(X_lstm, y_lstm, test_size=0.2, random_state=42)
 
         X_train_lstm = X_train_lstm.reshape((X_train_lstm.shape[0], X_train_lstm.shape[1], 1))
         X_test_lstm = X_test_lstm.reshape((X_test_lstm.shape[0], X_test_lstm.shape[1], 1))
 
         model = Sequential([
-            LSTM(100, return_sequences=True, input shape=(X_train_lstm.shape[1], 1)),
+            LSTM(100, return_sequences=True, input_shape=(X_train_lstm.shape[1], 1)),
             Dropout(0.2),
             LSTM(100, return_sequences=True),
             Dropout(0.2),
@@ -129,7 +130,7 @@ class ModelTrainer:
 
         model.compile(optimizer='adam', loss='mse')
 
-        early stop = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
+        early_stop = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
 
         history = model.fit(X_train_lstm, y_train_lstm, epochs=50, batch_size=64, validation_data=(X_test_lstm, y_test_lstm),
                             callbacks=[early_stop], verbose=2)
@@ -159,3 +160,25 @@ class ModelTrainer:
         lstm_model_filename = f"./models/lstm_model_{timestamp}.h5"
         model.save(lstm_model_filename)
         print(f'LSTM model serialized to {lstm_model_filename}')
+    
+    def train_xgboost(self):
+        xgb_pipeline = Pipeline([
+            ('scaler', StandardScaler()),
+            ('model', XGBRegressor(n_estimators=10, random_state=42))
+        ])
+
+        # Fit the pipeline
+        xgb_pipeline.fit(self.X_train, self.y_train)
+
+        # Check if the XGBoost model is fitted
+        check_is_fitted(xgb_pipeline.named_steps['model'])
+
+        # Predict on training data
+        y_pred_train_xgb = xgb_pipeline.predict(self.X_train)
+
+        # Predict on test data if available
+        if self.X_test is not None:
+            y_pred_test_xgb = xgb_pipeline.predict(self.X_test)
+            return xgb_pipeline, y_pred_train_xgb, y_pred_test_xgb
+
+        return xgb_pipeline, y_pred_train_xgb
