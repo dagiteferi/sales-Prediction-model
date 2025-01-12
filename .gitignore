@@ -1,2 +1,5 @@
 week-4/
 Data/
+.vercel/ 
+node_modules/
+notebooks/models/

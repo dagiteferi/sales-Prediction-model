@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <title>Prediction Result</title>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto py-10">
+        <h1 class="text-2xl font-bold text-center mb-5">Prediction Result</h1>
+
+        <table class="min-w-full bg-white border-collapse">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 bg-blue-200">Field</th>
+                    <th class="py-2 px-4 bg-blue-200">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border px-4 py-2">Store</td>
+                    <td class="border px-4 py-2">{{ store }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Day of Week</td>
+                    <td class="border px-4 py-2">{{ day_of_week }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Customers</td>
+                    <td class="border px-4 py-2">{{ customers }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Open Store</td>
+                    <td class="border px-4 py-2">{{ open_store }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Promo</td>
+                    <td class="border px-4 py-2">{{ promo }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">State Holiday</td>
+                    <td class="border px-4 py-2">{{ state_holiday }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">School Holiday</td>
+                    <td class="border px-4 py-2">{{ school_holiday }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Store Type</td>
+                    <td class="border px-4 py-2">{{ store_type }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Assortment</td>
+                    <td class="border px-4 py-2">{{ assortment }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Competition Distance</td>
+                    <td class="border px-4 py-2">{{ competition_distance }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Competition Open Since Month</td>
+                    <td class="border px-4 py-2">{{ competition_open_since_month }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Competition Open Since Year</td>
+                    <td class="border px-4 py-2">{{ competition_open_since_year }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Promo2</td>
+                    <td class="border px-4 py-2">{{ promo2 }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Promo2 Since Week</td>
+                    <td class="border px-4 py-2">{{ promo2_since_week }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Promo2 Since Year</td>
+                    <td class="border px-4 py-2">{{ promo2_since_year }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Promo Interval</td>
+                    <td class="border px-4 py-2">{{ promo_interval }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Day</td>
+                    <td class="border px-4 py-2">{{ day }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Week of Year</td>
+                    <td class="border px-4 py-2">{{ week_of_year }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Month</td>
+                    <td class="border px-4 py-2">{{ month }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Year</td>
+                    <td class="border px-4 py-2">{{ year }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Is Weekend</td>
+                    <td class="border px-4 py-2">{{ is_weekend }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Is Beginning of Month</td>
+                    <td class="border px-4 py-2">{{ is_beginning_of_month }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Is Mid Month</td>
+                    <td class="border px-4 py-2">{{ is_mid_month }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Is End of Month</td>
+                    <td class="border px-4 py-2">{{ is_end_of_month }}</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2 font-bold">Prediction</td>
+                    <td class="border px-4 py-2 font-bold">{{ prediction }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="text-center mt-5">
+            <a href="/" class="text-blue-500 underline">Go Back</a>
+        </div>
+    </div>
+</body>
+</html>

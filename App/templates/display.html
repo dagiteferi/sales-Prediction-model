@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <title>Display Data</title>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto py-10">
+        <h1 class="text-2xl font-bold text-center mb-5">Submitted Data</h1>
+        <table class="min-w-full bg-white border-collapse">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 bg-blue-200">Store</th>
+                    <th class="py-2 px-4 bg-blue-200">Day of Week</th>
+                    <th class="py-2 px-4 bg-blue-200">Customers</th>
+                    <th class="py-2 px-4 bg-blue-200">Open</th>
+                    <th class="py-2 px-4 bg-blue-200">Promo</th>
+                    <th class="py-2 px-4 bg-blue-200">State Holiday</th>
+                    <th class="py-2 px-4 bg-blue-200">School Holiday</th>
+                    <th class="py-2 px-4 bg-blue-200">Store Type</th>
+                    <th class="py-2 px-4 bg-blue-200">Assortment</th>
+                    <th class="py-2 px-4 bg-blue-200">Competition Distance</th>
+                    <th class="py-2 px-4 bg-blue-200">Competition Open Since Month</th>
+                    <th class="py-2 px-4 bg-blue-200">Competition Open Since Year</th>
+                    <th class="py-2 px-4 bg-blue-200">Promo2</th>
+                    <th class="py-2 px-4 bg-blue-200">Promo2 Since Week</th>
+                    <th class="py-2 px-4 bg-blue-200">Promo2 Since Year</th>
+                    <th class="py-2 px-4 bg-blue-200">Promo Interval</th>
+                    <th class="py-2 px-4 bg-blue-200">Day</th>
+                    <th class="py-2 px-4 bg-blue-200">Week of Year</th>
+                    <th class="py-2 px-4 bg-blue-200">Month</th>
+                    <th class="py-2 px-4 bg-blue-200">Year</th>
+                    <th class="py-2 px-4 bg-blue-200">Is Weekend</th>
+                    <th class="py-2 px-4 bg-blue-200">Is Beginning of Month</th>
+                    <th class="py-2 px-4 bg-blue-200">Is Mid Month</th>
+                    <th class="py-2 px-4 bg-blue-200">Is End of Month</th>
+                    <th class="py-2 px-4 bg-blue-300">Sales Prediction</th> <!-- Prediction Column -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border px-4 py-2">{{ store }}</td>
+                    <td class="border px-4 py-2">{{ dayofweek }}</td>
+                    <td class="border px-4 py-2">{{ customers }}</td>
+                    <td class="border px-4 py-2">{{ open }}</td>
+                    <td class="border px-4 py-2">{{ promo }}</td>
+                    <td class="border px-4 py-2">{{ stateholiday }}</td>
+                    <td class="border px-4 py-2">{{ schoolholiday }}</td>
+                    <td class="border px-4 py-2">{{ storetype }}</td>
+                    <td class="border px-4 py-2">{{ assortment }}</td>
+                    <td class="border px-4 py-2">{{ competitiondistance }}</td>
+                    <td class="border px-4 py-2">{{ competitionopensincemonth }}</td>
+                    <td class="border px-4 py-2">{{ competitionopensinceyear }}</td>
+                    <td class="border px-4 py-2">{{ promo2 }}</td>
+                    <td class="border px-4 py-2">{{ promo2sinceweek }}</td>
+                    <td class="border px-4 py-2">{{ promo2sinceyear }}</td>
+                    <td class="border px-4 py-2">{{ promointerval }}</td>
+                    <td class="border px-4 py-2">{{ day }}</td>
+                    <td class="border px-4 py-2">{{ weekofyear }}</td>
+                    <td class="border px-4 py-2">{{ month }}</td>
+                    <td class="border px-4 py-2">{{ year }}</td>
+                    <td class="border px-4 py-2">{{ isweekend }}</td>
+                    <td class="border px-4 py-2">{{ isbeginningofmonth }}</td>
+                    <td class="border px-4 py-2">{{ ismidmonth }}</td>
+                    <td class="border px-4 py-2">{{ isendofmonth }}</td>
+                    <td class="border px-4 py-2">{{ prediction }}</td> <!-- Show Prediction -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
