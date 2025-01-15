@@ -3,3 +3,4 @@ Data/
 .vercel/ 
 node_modules/
 notebooks/models/
+notebooks/models
